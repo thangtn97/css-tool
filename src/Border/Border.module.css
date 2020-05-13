@@ -1,0 +1,7 @@
+.Button {
+  width: 40%;
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+  border: black 3px;
+}

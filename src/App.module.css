@@ -1,0 +1,19 @@
+.App {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+
+}
+.Nav {
+  display: flex;
+  justify-content: center;
+}
+.PropsCard {
+  width: 100%;
+  margin: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: 0.1rem solid transparent;
+  box-shadow: 0 1px 3px 0;
+}

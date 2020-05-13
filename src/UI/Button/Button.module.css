@@ -1,0 +1,19 @@
+.Button {
+  padding: 10px;
+  margin: 5px;
+  width: 30%;
+  cursor: pointer;
+  border: black;
+}
+.Solid {
+  border-style: solid;
+}
+.Dotted {
+  border-style: dotted;
+}
+.Top {
+  border-top-style: none;
+}
+.Right {
+  border-right: solid;
+}

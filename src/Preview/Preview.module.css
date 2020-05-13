@@ -1,0 +1,33 @@
+.PreviewCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 1rem;
+  padding: 10px;
+}
+.Preview {
+  width: 100%;
+  margin: 1rem;
+  box-shadow: 0 1px 3px 0;
+  height: 300px;
+  padding: 10px;
+}
+.Code {
+  width: 100%;
+  margin: 1rem; 
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px 0;
+}
+
+.BoxPreview {
+  width: 100px;
+  height: 100px;
+  background: blue;
+  position: relative;
+  left: 30px;
+  top: 50px;
+}
+
+
