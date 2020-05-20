@@ -2,19 +2,23 @@ import React, { Component } from "react";
 import styles from "./App.module.css";
 import BoxShadow from "./BoxShadow/BoxShadow";
 import Preview from "./Preview/Preview";
-import TextShadow from "./TextShadow/TextShadow";
 import Border from "./Border/Border";
 import styleLink from "./hoc/styleLink";
 import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 
 class App extends Component {
   state = {
+    idLayer: 0,
+    boxShadow: {
+      0: {
+        horiOffset: 5,
+        vertiOffset: 0,
+        spread: 3,
+        blur: 5,
+        opacity: 20,
+      },
+    },
     properties: {
-      horiOffset: 0,
-      vertiOffset: 0,
-      spread: 3,
-      blur: 5,
-      opacity: 20,
       borderRadius: 1,
       borderTopLeftRadius: 1,
       borderTopRightRadius: 1,
@@ -24,13 +28,6 @@ class App extends Component {
     borderStyle: "solid",
   };
 
-  onHandleChange = (value, propsName) => {
-    let newProps = { ...this.state.properties };
-    newProps[`${propsName}`] = value;
-    this.setState({
-      properties: newProps,
-    });
-  };
   onHandleClickedStyle = (value) => {
     console.log(value);
     this.setState({
@@ -49,9 +46,51 @@ class App extends Component {
       color: value,
     });
   };
-
+  onHandleChange1 = (value) => {
+    this.setState({
+      ...this.state,
+      properties: {
+        ...this.state.properties,
+        opacity: value,
+      },
+    });
+  };
+  onHandleBtnClick = () => {
+    const layer = {
+      horiOffset: 0,
+      vertiOffset: 0,
+      blur: 5,
+      spread: 3,
+      opacity: 20,
+    };
+    this.setState({
+      ...this.state,
+      boxShadow: {
+        ...this.state.boxShadow,
+        [new Date()]: layer,
+      },
+    });
+  };
+  onSelectLayer = (id) =>
+    this.setState({
+      idLayer: id,
+    });
+  onHandleChange = (value, propsName) => {
+    this.setState({
+      ...this.state,
+      boxShadow: {
+        ...this.state.boxShadow,
+        [this.state.idLayer]: {
+          ...this.state.boxShadow[this.state.idLayer],
+          [propsName]: value,
+        },
+      },
+    });
+    console.log(this.state.boxShadow);
+  };
   render() {
     const StyleLink = styleLink(Link);
+
     return (
       <BrowserRouter>
         <div className={styles.Nav}>
@@ -69,7 +108,14 @@ class App extends Component {
               />
               <Route
                 path="/box-shadow"
-                render={() => <BoxShadow handleChange={this.onHandleChange} />}
+                render={() => (
+                  <BoxShadow
+                    layers={this.state.boxShadow}
+                    handleBtnAddClick={this.onHandleBtnClick}
+                    handleChange={this.onHandleChange}
+                    selectLayer={this.onSelectLayer}
+                  />
+                )}
               />
               <Route
                 path="/border"
@@ -82,7 +128,6 @@ class App extends Component {
                   />
                 )}
               />
-              <Route path="/text-shadow" component={TextShadow} />
             </Switch>
           </div>
           <Route
@@ -91,7 +136,7 @@ class App extends Component {
               <Preview
                 color={this.state.color}
                 pos={this.state.pos}
-                properties={this.state.properties}
+                boxShadow={this.state.boxShadow}
                 borderStyle={this.state.borderStyle}
                 borderRadius={this.state.properties.borderRadius}
                 borderTopLeftRadius={this.state.properties.borderTopLeftRadius}

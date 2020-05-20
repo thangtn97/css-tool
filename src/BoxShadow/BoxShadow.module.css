@@ -1,0 +1,9 @@
+.BoxShadow {
+  display: flex;
+  flex-direction: column;
+}
+.Property {
+  display: flex;
+  flex-direction: column;
+}
+

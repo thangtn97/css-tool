@@ -4,24 +4,29 @@ import { withRouter } from "react-router-dom";
 
 const preview = (props) => {
   const type = props.match.params.page;
-  const properties = props.properties;
   let style = null;
   let preview = null;
   let code = null;
+  let boxShadowStyle = `${props.boxShadow[0].horiOffset}px ${
+    props.boxShadow[0].vertiOffset
+  }px ${props.boxShadow[0].blur}px ${
+    props.boxShadow[0].spread
+  }px rgba(0, 0, 0, ${props.boxShadow[0].opacity * 0.01})`;
   switch (type) {
     case "box-shadow":
-      code = (
-        <code>
-          box-shadow: rgba(0, 0, 0, {properties.opacity * 0.01})
-          {properties.horiOffset}
-          px {properties.vertiOffset}px {properties.blur}px {properties.spread}
-          px
-        </code>
-      );
+      console.log(props.boxShadow);
+      Object.keys(props.boxShadow)
+        .filter((key) => key !== 0)
+        .forEach((key) => {
+          boxShadowStyle =
+            `rgba(0, 0, 0, ${props.boxShadow[key].opacity * 0.01})${
+              props.boxShadow[key].horiOffset
+            }px ${props.boxShadow[key].vertiOffset}px ${
+              props.boxShadow[key].blur
+            }px ${props.boxShadow[key].spread}px,` + boxShadowStyle;
+        });
       style = {
-        boxShadow: `${properties.horiOffset}px ${properties.vertiOffset}px ${
-          properties.blur
-        }px ${properties.spread}px rgba(0, 0, 0, ${properties.opacity * 0.01})`,
+        boxShadow: boxShadowStyle,
       };
       preview = <div style={style} className={styles.BoxPreview}></div>;
       break;

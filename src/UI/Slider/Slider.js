@@ -5,8 +5,8 @@ const slider = (props) => {
     <div className={styles.Slider}>
       <label>{props.label}</label>
       <input
-        defaultValue={props.defaultValue}
         type="range"
+        value={props.value}
         min={props.min}
         max={props.max}
         onChange={(event) =>
